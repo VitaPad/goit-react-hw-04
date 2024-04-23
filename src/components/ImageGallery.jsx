@@ -6,7 +6,7 @@ export default function ImageGallery({ items }) {
       {items.map(item => (
         <li key={item.id}>
           <div>
-            <ImageCard url={item.url} alt={item.title} />
+            <ImageCard urls={item.urls} alt={item.title} />
           </div>
         </li>
       ))}

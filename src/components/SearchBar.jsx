@@ -1,11 +1,10 @@
-export default function SearchBar({ query, onSubmit, setQuery }) {
+export default function SearchBar({ onSubmit }) {
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit(query);
+    const value = event.target.elements.search.value.trim(); // Отримати значення поля вводу
+    onSubmit(value);
   };
-  const handleChange = event => {
-    setQuery(event.target.value);
-  };
+
   return (
     <header>
       <form onSubmit={handleSubmit}>
@@ -14,11 +13,19 @@ export default function SearchBar({ query, onSubmit, setQuery }) {
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
-          value={query}
-          onChange={handleChange}
+          name="search"
         />
         <button type="submit">Search</button>
       </form>
     </header>
   );
 }
+
+/*   const handleChange = event => {
+    setQuery(event.target.value);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    onSubmit(query);
+  }; */
