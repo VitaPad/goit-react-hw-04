@@ -27,6 +27,7 @@ function App() {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
 
   function openModal() {
     setIsOpen(true);
@@ -60,6 +61,7 @@ function App() {
         setPhotos(prevPhotos => {
           return [...prevPhotos, ...data];
         });
+        setTotalPages(data.total);
       } catch (error) {
         setError(true);
       } finally {
@@ -89,7 +91,10 @@ function App() {
         style={customStyles}
         contentLabel="Example Modal"
       />
-      {photos.length > 0 && !isLoading && (
+      {/*   {photos.length > 0 && !isLoading && (
+        <LoadMoreBtn onClick={handleLoadMore} />
+      )} */}
+      {photos.length > 0 && !isLoading && totalPages !== page && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
     </>

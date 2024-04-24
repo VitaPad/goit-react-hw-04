@@ -1,3 +1,11 @@
+import css from './LoadMoreBtn.module.css';
+
 export default function LoadMoreBtn({ onClick }) {
-  return <button onClick={onClick}>Load More</button>;
+  return (
+    <div className={css.container}>
+      <button className={css.button} onClick={onClick}>
+        Load More
+      </button>
+    </div>
+  );
 }
