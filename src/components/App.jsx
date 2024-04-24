@@ -7,6 +7,18 @@ import SearchBar from './SearchBar';
 import Loader from './Loader';
 import ErrorMessage from './ErrorMessage';
 import LoadMoreBtn from './LoadMoreBtn';
+import ImageModal from './ImageModal';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 
 function App() {
   const [photos, setPhotos] = useState([]);
@@ -14,6 +26,19 @@ function App() {
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   const handleSubmit = async newQuery => {
     setQuery(newQuery);
@@ -49,12 +74,21 @@ function App() {
     <>
       <SearchBar query={query} onSubmit={handleSubmit} setQuery={setQuery} />
       {isLoading && <Loader />}
-      {photos.length > 0 && <ImageGallery items={photos} />}
+      {photos.length > 0 && (
+        <ImageGallery items={photos} openModal={openModal} />
+      )}
       {error && (
         <ErrorMessage
           message={'Failed to fetch photos. Please try again later.'}
         />
       )}
+      <ImageModal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      />
       {photos.length > 0 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
