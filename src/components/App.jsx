@@ -28,10 +28,12 @@ function App() {
   const [error, setError] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
+  const [selectedImageUrl, setSelectedImageUrl] = useState(null);
 
-  function openModal() {
+  const openModal = regularUrl => {
     setIsOpen(true);
-  }
+    setSelectedImageUrl(regularUrl);
+  };
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
@@ -89,6 +91,7 @@ function App() {
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
+        imageUrl={selectedImageUrl}
       />
       {photos.length > 0 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMore} />

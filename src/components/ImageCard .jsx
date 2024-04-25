@@ -1,8 +1,8 @@
 import css from './ImageCard.module.css';
 
-export default function ImageCard({ urls, alt, openModal }) {
+export default function ImageCard({ urls, alt, openModal, imageUrl }) {
   const handleClick = () => {
-    openModal(urls.regular);
+    openModal(imageUrl);
     console.log(handleClick);
   };
   return (

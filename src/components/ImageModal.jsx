@@ -1,19 +1,21 @@
 import Modal from 'react-modal';
+Modal.setAppElement('#root');
 export default function ImageModal({
   modalIsOpen,
-  afterOpenModal,
   closeModal,
   customStyles,
   setIsOpen,
+  imageUrl,
 }) {
   return (
     <Modal
       isOpen={modalIsOpen}
-      onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
       style={customStyles}
       openModal={setIsOpen}
       contentLabel="Example Modal"
-    ></Modal>
+    >
+      <img src={imageUrl} alt="Large" />
+    </Modal>
   );
 }

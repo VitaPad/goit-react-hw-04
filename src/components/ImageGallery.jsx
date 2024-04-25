@@ -10,7 +10,7 @@ export default function ImageGallery({ items, openModal }) {
             <ImageCard
               urls={item.urls}
               alt={item.title}
-              openModal={openModal}
+              openModal={() => openModal(item.urls.regular)}
             />
           </div>
         </li>
