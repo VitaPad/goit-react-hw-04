@@ -8,7 +8,7 @@ import Loader from './Loader';
 import ErrorMessage from './ErrorMessage';
 import LoadMoreBtn from './LoadMoreBtn';
 import ImageModal from './ImageModal';
-
+const perPage = 12;
 const customStyles = {
   content: {
     top: '50%',
@@ -61,14 +61,13 @@ function App() {
         setPhotos(prevPhotos => {
           return [...prevPhotos, ...data];
         });
-        setTotalPages(data.total);
+        setTotalPages(data.total_pages * perPage);
       } catch (error) {
         setError(true);
       } finally {
         setLoading(false);
       }
     }
-
     getPhotos();
   }, [page, query]);
 
@@ -91,10 +90,7 @@ function App() {
         style={customStyles}
         contentLabel="Example Modal"
       />
-      {/*   {photos.length > 0 && !isLoading && (
-        <LoadMoreBtn onClick={handleLoadMore} />
-      )} */}
-      {photos.length > 0 && !isLoading && totalPages !== page && (
+      {photos.length > 0 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
     </>
@@ -102,3 +98,5 @@ function App() {
 }
 
 export default App;
+
+/* photos.length < totalPages * perPage  */
