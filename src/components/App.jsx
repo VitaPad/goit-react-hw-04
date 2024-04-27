@@ -20,6 +20,11 @@ const customStyles = {
   },
 };
 
+/* const modalStyles = {
+  ...customStyles,
+  backgroundColor: 'rgba(0, 0, 0, 0.5)', // Сірий фон з прозорістю
+}; */
+
 function App() {
   const [photos, setPhotos] = useState([]);
   const [query, setQuery] = useState('');
@@ -28,10 +33,15 @@ function App() {
   const [error, setError] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [selectedImageUrl, setSelectedImageUrl] = useState(null);
+  const [showBtn, setShowBtn] = useState(false);
+
+  const openButton = (total_pages, page) => {
+    setShowBtn(total_pages && total_pages !== page);
+  };
 
   const openModal = urls => {
     setIsOpen(true);
-    setSelectedImageUrl(urls.regular);
+    setSelectedImageUrl(urls);
   };
 
   function closeModal() {
@@ -55,9 +65,13 @@ function App() {
       try {
         setLoading(true);
         const data = await fetchPhotos(query, page);
+        const totalPages = data.total_pages;
+        console.log(totalPages);
         setPhotos(prevPhotos => {
           return [...prevPhotos, ...data];
         });
+        openButton(totalPages, page);
+        setShowBtn(true);
       } catch (error) {
         setError(true);
       } finally {
@@ -82,12 +96,12 @@ function App() {
       <ImageModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customStyles}
         contentLabel="Example Modal"
         imageUrl={selectedImageUrl}
+        style={customStyles}
       />
-      {photos.length > 0 && !isLoading && (
-        <LoadMoreBtn onClick={handleLoadMore} />
+      {showBtn && (
+        <LoadMoreBtn onClick={handleLoadMore} openButton={openButton} />
       )}
     </>
   );
