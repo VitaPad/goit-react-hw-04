@@ -3,12 +3,12 @@ import { fetchPhotos } from '../articles-api';
 import ImageGallery from './ImageGallery';
 
 import './App.css';
-import SearchBar from './SearchBar';
-import Loader from './Loader';
-import ErrorMessage from './ErrorMessage';
-import LoadMoreBtn from './LoadMoreBtn';
-import ImageModal from './ImageModal';
-const perPage = 12;
+import SearchBar from './SearchBar.jsx';
+import Loader from './Loader.jsx';
+import ErrorMessage from './ErrorMessage.jsx';
+import LoadMoreBtn from './LoadMoreBtn.jsx';
+import ImageModal from './ImageModal.jsx';
+
 const customStyles = {
   content: {
     top: '50%',
@@ -27,17 +27,12 @@ function App() {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [totalPages, setTotalPages] = useState(0);
   const [selectedImageUrl, setSelectedImageUrl] = useState(null);
 
-  const openModal = regularUrl => {
+  const openModal = urls => {
     setIsOpen(true);
-    setSelectedImageUrl(regularUrl);
+    setSelectedImageUrl(urls.regular);
   };
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-  }
 
   function closeModal() {
     setIsOpen(false);
@@ -63,7 +58,6 @@ function App() {
         setPhotos(prevPhotos => {
           return [...prevPhotos, ...data];
         });
-        setTotalPages(data.total_pages * perPage);
       } catch (error) {
         setError(true);
       } finally {
@@ -87,7 +81,6 @@ function App() {
       )}
       <ImageModal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"

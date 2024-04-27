@@ -1,7 +1,7 @@
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
 export default function ImageModal({
-  modalIsOpen,
+  isOpen,
   closeModal,
   customStyles,
   setIsOpen,
@@ -9,7 +9,7 @@ export default function ImageModal({
 }) {
   return (
     <Modal
-      isOpen={modalIsOpen}
+      isOpen={isOpen}
       onRequestClose={closeModal}
       style={customStyles}
       openModal={setIsOpen}

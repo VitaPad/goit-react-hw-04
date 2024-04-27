@@ -1,4 +1,4 @@
-import ImageCard from './ImageCard ';
+import ImageCard from './ImageCard .jsx';
 import css from './ImageGallery.module.css';
 
 export default function ImageGallery({ items, openModal }) {
@@ -10,7 +10,7 @@ export default function ImageGallery({ items, openModal }) {
             <ImageCard
               urls={item.urls}
               alt={item.title}
-              openModal={() => openModal(item.urls.regular)}
+              openModal={openModal}
             />
           </div>
         </li>
@@ -18,3 +18,5 @@ export default function ImageGallery({ items, openModal }) {
     </ul>
   );
 }
+
+/* openModal={() => openModal(item.urls.regular)} */
