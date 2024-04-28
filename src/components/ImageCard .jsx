@@ -5,8 +5,13 @@ export default function ImageCard({ urls, alt, openModal }) {
     openModal(urls.regular);
   };
   return (
-    <div className={css.container} onClick={handleClick}>
-      <img className={css.img} src={urls.small} alt={alt} />
+    <div className={css.container}>
+      <img
+        className={css.img}
+        src={urls.small}
+        alt={alt}
+        onClick={handleClick}
+      />
     </div>
   );
 }

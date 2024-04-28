@@ -35,8 +35,8 @@ function App() {
   const [selectedImageUrl, setSelectedImageUrl] = useState(null);
   const [showBtn, setShowBtn] = useState(false);
 
-  const openButton = (total_pages, page) => {
-    setShowBtn(total_pages && total_pages !== page);
+  const openButton = (totalPages, page) => {
+    setShowBtn(totalPages && totalPages !== page);
   };
 
   const openModal = urls => {
@@ -65,13 +65,11 @@ function App() {
       try {
         setLoading(true);
         const data = await fetchPhotos(query, page);
-        const totalPages = data.total_pages;
-        console.log(totalPages);
         setPhotos(prevPhotos => {
           return [...prevPhotos, ...data];
         });
-        openButton(totalPages, page);
         setShowBtn(true);
+        setError(false);
       } catch (error) {
         setError(true);
       } finally {

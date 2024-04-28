@@ -5,22 +5,22 @@ export default function ImageModal({
   isOpen,
   onRequestClose,
   style,
-  setIsOpen,
   imageUrl,
 }) {
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      sstyle={style}
-      openModal={setIsOpen}
       className={css.container}
       contentLabel="Example Modal"
       style={{
+        ...style,
         overlay: {
+          ...style.overlay,
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
         },
         content: {
+          ...style.content,
           color: 'lightsteelblue',
           overflow: 'hidden',
           border: 'none',
